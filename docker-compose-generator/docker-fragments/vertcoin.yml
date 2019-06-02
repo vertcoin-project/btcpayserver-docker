@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  vertcoind:
+    restart: unless-stopped
+    container_name: btcpayserver_vertcoind
+    image: jamesl22/btcpayserver-vertcoind:0.14.0
+    environment:
+      BITCOIN_EXTRA_ARGS: |
+        rpcport=43782
+        ${NBITCOIN_NETWORK:-regtest}=1
+        port=39388
+        whitelist=0.0.0.0/0
+    expose:
+      - "43782"
+      - "39388"
+    volumes:
+      - "vertcoin_datadir:/data"
+  nbxplorer:
+      environment:
+        NBXPLORER_CHAINS: "vtc"
+        NBXPLORER_VTCRPCURL: http://vertcoind:43782/
+        NBXPLORER_VTCNODEENDPOINT: vertcoind:39388
+      volumes:
+        - "vertcoin_datadir:/root/.vertcoin"
+  btcpayserver:
+      environment:
+        BTCPAY_VTCEXPLORERURL: http://nbxplorer:32838/
+        BTCPAY_CHAINS: "vtc"
+
+volumes:
+    vertcoin_datadir:

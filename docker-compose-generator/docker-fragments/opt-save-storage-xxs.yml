@@ -30,3 +30,6 @@ services:
   monacoind:
     environment:
       BITCOIN_EXTRA_ARGS: prune=5000
+  vertcoind:
+    environment:
+      BITCOIN_EXTRA_ARGS: prune=5000

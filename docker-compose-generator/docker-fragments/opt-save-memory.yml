@@ -37,3 +37,8 @@ services:
       BITCOIN_EXTRA_ARGS: |
         dbcache=50
         maxmempool=50
+  vertcoind:
+    environment:
+      BITCOIN_EXTRA_ARGS: |
+        dbcache=50
+        maxmempool=50
